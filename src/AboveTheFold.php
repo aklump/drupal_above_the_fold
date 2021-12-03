@@ -70,8 +70,14 @@ final class AboveTheFold {
    * @param \Symfony\Component\HttpFoundation\Request $request
    *
    * @return static
+   *
+   * @throws \RuntimeException
+   *   If $request is an AJAX request.
    */
   public static function fromRequest(string $uri, Request $request): self {
+    if ($request->isXmlHttpRequest()) {
+      throw new \RuntimeException('An AJAX request cannot be used with this method.');
+    }
     $image_context = ['page' => $request->getUri()];
     list(, $image_context['page']) = explode(parse_url($image_context['page'], PHP_URL_HOST), $image_context['page']);
     $obj = new AboveTheFold($uri, $image_context);
