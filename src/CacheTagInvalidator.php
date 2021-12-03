@@ -37,12 +37,18 @@ class CacheTagInvalidator implements CacheTagsInvalidatorInterface {
    * {@inheritdoc}
    */
   public function invalidateTags(array $tags) {
+
+    // This will happen during install/uninstall.
+    if (!$this->connection->schema()->tableExists('cache_' . $this->bin)) {
+      return;
+    }
+
     // Since our cache backend is no tagged with `cache.bin`, we have to locate
     // the cache IDs manually via this service, when tags are invalidated.  This
     // is because this service is tagged with `cache_tags_invalidator`.
     $cids = [];
     foreach ($tags as $tag) {
-      $query = \Drupal::service('database')
+      $query = $this->connection
         ->select('cache_' . $this->bin, 'c')
         ->fields('c', ['cid']);
       $query->orConditionGroup()
@@ -52,7 +58,9 @@ class CacheTagInvalidator implements CacheTagsInvalidatorInterface {
       $cids = array_merge($cids, $query->execute()->fetchCol());
     }
     if (count($cids)) {
-      \Drupal::service('cache.' . $this->bin)->invalidateMultiple($cids);
+      // Choosing delete over invalidate for small db size.  There is no value
+      // with having invalid results around.
+      \Drupal::service('cache.' . $this->bin)->deleteMultiple($cids);
     }
   }
 
