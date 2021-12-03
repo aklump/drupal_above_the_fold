@@ -35,19 +35,26 @@ $image = [
   '#attributes' => [],
 ];
 
-$above = \Drupal\above_the_fold\AboveTheFold::fromRequest($image['#src'], \Drupal::request());
-
-// Check if the image is found in our registry.
-if (!$above->get()) {
-
-  // Nope.  It should lazy load, or it has not yet been registered.
-  $image['#attributes']['class'][] = 'lazy-load';
-
-  // If the current user has permission to report status then add the data attribute that will be used by JS to POST.
-  if (\Drupal::currentUser()->hasPermission('above_the_fold')) {
-    $image['#attributes']['data-above-the-fold'] = strval($above);
+try {
+  $above = \Drupal\above_the_fold\AboveTheFold::fromRequest($image['#src'], \Drupal::request());
+  
+  // Check if the image is found in our registry.
+  if (!$above->get()) {
+  
+    // Nope.  It should lazy load, or it has not yet been registered.
+    $image['#attributes']['class'][] = 'lazy-load';
+  
+    // If the current user has permission to report status then add the data attribute that will be used by JS to POST.
+    if (\Drupal::currentUser()->hasPermission('above_the_fold')) {
+      $image['#attributes']['data-above-the-fold'] = strval($above);
+    }
   }
 }
+catch(\Exception $e) {
+  // This happens if request is AJAX
+}  
+
+
 
 ```
 
