@@ -12,13 +12,9 @@
 
 ## Configuration
 
-```php
-$config['above_the_fold.settings']['pixelHeight'] = 800;
-```
-
 1. Grant user permissions as explained here.
 2. Unless a user has the `above_the_fold` permission, the endpoint `/api/above-the-fold` will not allow them access, and therefor their browsing activity will have no effect, as far as this module is concerned.
-3. This module does not provide a mechanism for `POST`ing to the endpoint, however an example code is shown below.
+3. This module does not provide a mechanism for `POST`ing to the endpoint, however example code is shown below.
 
 ## Integration in Theory
 
@@ -39,15 +35,15 @@ $image = [
   '#attributes' => [],
 ];
 
-$above = AboveTheFold::fromRequest($image['#src'], \Drupal::request());
+$above = \Drupal\above_the_fold\AboveTheFold::fromRequest($image['#src'], \Drupal::request());
 
 // Check if the image is found in our registry.
 if (!$above->get()) {
 
-  // Nope.  It should lazy load.
+  // Nope.  It should lazy load, or it has not yet been registered.
   $image['#attributes']['class'][] = 'lazy-load';
 
-  // If the current user has permission to report status then...
+  // If the current user has permission to report status then add the data attribute that will be used by JS to POST.
   if (\Drupal::currentUser()->hasPermission('above_the_fold')) {
     $image['#attributes']['data-above-the-fold'] = strval($above);
   }

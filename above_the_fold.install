@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function above_the_fold_uninstall($is_syncing) {
+
+  // If we had tagged the service with `cache.bin` this would be done
+  // automatically, but since we wanted to protect it from cache clearing, when
+  // our module is uninstalled, we have to manually remove the bin.
+  //  $backend = $this->kernel->getContainer()->get($service_id);
+  $backend = \Drupal::service('cache.above_the_fold');
+  if ($backend) {
+    $backend->removeBin();
+  }
+}
