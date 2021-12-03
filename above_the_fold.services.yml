@@ -1,0 +1,14 @@
+services:
+
+  # We purposely do not add the "tags" key here, because we do not want this
+  # cache to get cleared under general cache clears.
+  cache.above_the_fold:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    factory: cache_factory:get
+    arguments: [ above_the_fold ]
+
+  above_the_fold.invalidator:
+    class: Drupal\above_the_fold\CacheTagInvalidator
+    arguments: [ '@database', '@cache.above_the_fold', above_the_fold ]
+    tags:
+      - { name: cache_tags_invalidator }

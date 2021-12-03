@@ -1,0 +1,9 @@
+name: Above The Fold
+description: A means of distinguishing images which should not be lazy loaded based on their position on the rendered page.
+package: media
+type: module
+core_version_requirement: ^8 || ^9
+version: 8.x-0.0.1
+
+dependencies:
+  - drupal:rest

@@ -1,0 +1,21 @@
+uuid: 00fa8a22-5321-11ec-a938-acde48001122
+langcode: en
+status: true
+dependencies:
+  module:
+    - serialization
+    - above_the_fold
+  enforced:
+    module:
+      - above_the_fold
+id: above_the_fold
+plugin_id: above_the_fold
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - json
+  authentication:
+    - cookie
+
