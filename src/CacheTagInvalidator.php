@@ -51,10 +51,11 @@ class CacheTagInvalidator implements CacheTagsInvalidatorInterface {
       $query = $this->connection
         ->select('cache_' . $this->bin, 'c')
         ->fields('c', ['cid']);
-      $query->orConditionGroup()
+      $tag_matching_conditions = $query->orConditionGroup()
         ->condition('tags', $tag)
         ->condition('tags', $tag . ' %', 'LIKE')
         ->condition('tags', '% ' . $tag, 'LIKE');
+      $query->condition($tag_matching_conditions);
       $cids = array_merge($cids, $query->execute()->fetchCol());
     }
     if (count($cids)) {
