@@ -3,7 +3,7 @@ description: 'A means of distinguishing images which should not be lazy loaded b
 package: media
 type: module
 core_version_requirement: '^8 || ^9'
-version: 8.x-0.1.2
+version: 8.x-0.1.3
 dependencies:
   - 'drupal:rest'
 homepage: 'https://github.com/aklump/drupal_above_the_fold'
