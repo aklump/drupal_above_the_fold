@@ -31,7 +31,12 @@ class AboveTheFoldResourceCollection extends ResourceBase {
    * {@inheritdoc}
    */
   public function permissions() {
-    return ['above_the_fold'];
+    return [
+      'above_the_fold' => [
+        'title' => 'Report above the fold images',
+        'description' => "Observes a user's browser to report images are above the fold.",
+      ],
+    ];
   }
 
   /**
