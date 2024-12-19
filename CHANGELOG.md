@@ -8,3 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Nothing to list
+
+## [0.2.0] - 2024-12-18
+
+### Added
+
+- Support for Drupal 10

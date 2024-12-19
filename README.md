@@ -1,5 +1,7 @@
 # Above The Fold Drupal Module
 
+![Above the Fold](images/above_the_fold.jpg)
+
 ## Summary
 
 1. Provides a means to track which images should load immediately (above the fold) and which images should wait for lazy-loading.
