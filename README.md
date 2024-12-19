@@ -28,7 +28,7 @@ Because this is an unpublished, custom Drupal module, the way you install and de
 ### A. Install Standalone
 * Require _above_the_fold_ at the **root-level**.
     ```
-    composer require aklump_drupal/above_the_fold:^0.1
+    composer require aklump_drupal/above_the_fold:^0.2
     ```
 ---
 ### B. Depend on This Module
@@ -44,7 +44,7 @@ Because this is an unpublished, custom Drupal module, the way you install and de
     ```
 * From the depending module (or theme) directory run:
     ```
-    composer require aklump_drupal/above_the_fold:^0.1 --no-update
+    composer require aklump_drupal/above_the_fold:^0.2 --no-update
     ```
 
 * Add the following to _my_module.info.yml_ in the `dependencies` array:
